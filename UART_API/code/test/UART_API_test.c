@@ -80,5 +80,6 @@ int main()
     test_set_parity(uart);
     test_set_stopb(uart);
     test_set_number_bits(uart);
+    free_UART(uart);
     return 0;
 }
