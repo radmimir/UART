@@ -33,5 +33,8 @@ int main()
     }
     int count_send = send(uart2,receved_data);
     if (count_send == count_received) printf("Success transfer\n");
+    free_UART(uart1);
+    free_UART(uart2);
+    free(receved_data);
     return 0;
 };
