@@ -43,7 +43,9 @@ int init_UART(UART* uart, int sp_number, unsigned char receive)
     char* path = (char*)malloc(sizeof(char)*FILENAME_MAXSIZE);
     char* sp_num = (char*)malloc(sizeof(int));
     sprintf(sp_num,"%d",sp_number);
+    memcpy(path, "/dev/ttyS",10);
     path = strcat(path, (const char*)sp_num);
+    printf("%s %s %s \n",path,sp_num, path);
     uart->fd = open(path, O_RDWR, O_SYNC | O_NOCTTY );
     if (uart->fd < 0) {
         printf("Error %i from open: %s\n", errno, strerror(errno));
@@ -192,8 +194,10 @@ int receive(UART* uart, unsigned char* received_data)
     return result;
 }
 
+
 void free_UART(UART* uart)
 {
     free(uart->data);
+    close(uart->fd);
     free(uart);
 }
